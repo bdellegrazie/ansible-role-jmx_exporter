@@ -13,10 +13,7 @@ Requires Ansible role `bdellegrazie.ansible-role-prometheus_exporter`
 | Variable | Description | Default |
 |----------|-------------|---------|
 | `jmx_exporter_version`| Version of the exporter to use | `0.9` |
-| `jmx_exporter_options`| Command line options | [] |
 
-The following option is always provided: `-collector.textfile.directory /var/lib/jmx_exporter`
-Ensures the textfile capability is enabled
 Other variables are in defaults/main.yml
 
 # Dependencies
