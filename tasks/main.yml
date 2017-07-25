@@ -1,0 +1,41 @@
+---
+# dependency of maven_artifact
+- name: prerequisites
+  become: true
+  become_user: root
+  package:
+    name: python-lxml
+    state: present
+
+- name: download
+  become: true
+  become_user: root
+  maven_artifact:
+    artifact_id: "jmx_prometheus_javaagent"
+    dest: "{{ jmx_exporter_dist_dir }}"
+    group_id: "io.prometheus.jmx"
+    repository_url: "{{ jmx_exporter_repository_url | default(omit) }}"
+    version: "{{ jmx_exporter_version }}"
+
+- name: permissions
+  become: true
+  become_user: root
+  file:
+    path: "{{ jmx_exporter_dist_dir }}/{{ jmx_exporter_signature }}"
+    owner: root
+    group: root
+    mode: "u=rw,go=r"
+
+- name: symlink
+  become: true
+  become_user: root
+  file:
+    src: "{{ jmx_exporter_dist_dir }}/{{ jmx_exporter_signature }}"
+    path: "{{ jmx_exporter_program }}"
+    owner: root
+    group: root
+    force: true
+    mode: "ugo=rwx"
+    state: link
+  notify:
+    - restart jmx_exporter

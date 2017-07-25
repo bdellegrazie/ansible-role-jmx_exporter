@@ -1,0 +1,8 @@
+---
+jmx_exporter_version: "0.9"
+
+jmx_exporter_dist_dir: "{{ prometheus_exporter_dist_dir }}"
+#jmx_exporter_repository_url: optional maven repo
+jmx_exporter_signature: "jmx_prometheus_javaagent-{{ jmx_exporter_version }}.jar"
+
+jmx_exporter_program: "{{ prometheus_exporter_dir }}/jmx_prometheus_javaagent.jar"
