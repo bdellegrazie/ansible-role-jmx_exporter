@@ -1,3 +1,0 @@
----
-- name: restart jmx_exporter
-  meta: noop

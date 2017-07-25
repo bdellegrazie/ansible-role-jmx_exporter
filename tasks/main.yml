@@ -37,5 +37,3 @@
     force: true
     mode: "ugo=rwx"
     state: link
-  notify:
-    - restart jmx_exporter
