@@ -1,5 +1,5 @@
 ---
-jmx_exporter_version: "0.9"
+jmx_exporter_version: "0.10"
 
 jmx_exporter_dist_dir: "{{ prometheus_exporter_dist_dir }}"
 #jmx_exporter_repository_url: optional maven repo

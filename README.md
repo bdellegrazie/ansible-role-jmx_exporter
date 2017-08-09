@@ -12,7 +12,7 @@ Requires Ansible role `bdellegrazie.ansible-role-prometheus_exporter`
 
 | Variable | Description | Default |
 |----------|-------------|---------|
-| `jmx_exporter_version`| Version of the exporter to use | `0.9` |
+| `jmx_exporter_version`| Version of the exporter to use | `0.10` |
 
 Other variables are in defaults/main.yml
 
