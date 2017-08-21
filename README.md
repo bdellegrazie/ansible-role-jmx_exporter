@@ -18,7 +18,7 @@ Other variables are in defaults/main.yml
 
 # Dependencies
 
-    `bdellegrazie.ansible-role-prometheus_exporter`
+    `bdellegrazie.prometheus_exporter`
 
 # Example Playbook
 
