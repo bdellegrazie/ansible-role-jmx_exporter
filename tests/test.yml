@@ -1,0 +1,16 @@
+---
+- hosts: all
+  roles:
+    - bdellegrazie.ansible-role-serverspec_test_dependencies
+    - geerlingguy.java
+    - role_under_test
+  pre_tasks:
+    - name: "Workaround for packaging bug https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=863199#23"
+      file:
+        path: /usr/share/man/man1
+        owner: root
+        group: root
+        mode: "u=rwx,go=rx"
+        recurse: true
+        state: directory
+      when: ansible_distribution == 'Ubuntu' and ansible_distribution_version == '18.04'
