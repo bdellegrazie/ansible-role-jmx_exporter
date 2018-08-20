@@ -35,6 +35,5 @@
     owner: root
     group: root
     force: true
-    mode: "ugo=rwx"
     state: link
   register: jmx_exporter_binary
