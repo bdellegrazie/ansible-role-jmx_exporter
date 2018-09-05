@@ -4,7 +4,7 @@ sudo: required
 env:
   matrix:
     - distro: centos7
-    - distro: centos6
+    #- distro: centos6 missing hosts entry for localhost.localdomain, daemon fails to start
     - distro: fedora27
     - distro: ubuntu1804
     - distro: ubuntu1604

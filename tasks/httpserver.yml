@@ -1,0 +1,91 @@
+---
+- name: symlink httpserver
+  become: true
+  become_user: root
+  file:
+    src: "{{ jmx_exporter_dist_dir }}/{{ jmx_exporter_httpserver_signature }}"
+    path: "{{ jmx_exporter_httpserver_program }}"
+    owner: root
+    group: root
+    force: true
+    state: link
+  register: jmx_exporter_httpserver_binary
+  notify: restart jmx_exporter_httpserver
+
+- name: group
+  become: true
+  become_user: root
+  user:
+    name: "{{ jmx_exporter_httpserver_group }}"
+    state: present
+    system: true
+  when: jmx_exporter_httpserver_group_manage | bool
+
+- name: user
+  become: true
+  become_user: root
+  user:
+    name: "{{ jmx_exporter_httpserver_user }}"
+    group: "{{ jmx_exporter_httpserver_group }}"
+    home: "{{ jmx_exporter_httpserver_home }}"
+    createhome: false
+    shell: /sbin/nologin
+    comment: jmx_exporter_httpserver
+    state: present
+    system: true
+  when: jmx_exporter_httpserver_user_manage | bool
+
+- name: home
+  become: true
+  become_user: root
+  file:
+    path: "{{ jmx_exporter_httpserver_home }}"
+    owner: "{{ jmx_exporter_httpserver_user }}"
+    group: "{{ jmx_exporter_httpserver_group }}"
+    mode: "u=rwx,g=rx,o="
+    state: directory
+  when: jmx_exporter_httpserver_home_manage | bool
+
+- name: logs
+  become: true
+  become_user: root
+  file:
+    path: "{{ jmx_exporter_httpserver_log_path }}"
+    owner: "{{ jmx_exporter_httpserver_user }}"
+    group: "{{ jmx_exporter_httpserver_group }}"
+    mode: "u=rwx,g=rx,o="
+    state: directory
+  when: jmx_exporter_httpserver_log_path_manage | bool
+
+- block:
+    - name: config
+      become: true
+      become_user: root
+      template:
+        src: "jmx_exporter_httpserver.default.conf.j2"
+        dest: "/etc/default/jmx_exporter_httpserver"
+        owner: root
+        group: root
+        mode: "u=rw,go=r"
+      notify: restart jmx_exporter_httpserver
+
+    - name: install service
+      include: service-{{ prometheus_exporter_service_mgr }}.yml
+
+    - name: Service Enabled
+      become: true
+      become_user: root
+      service:
+        name: jmx_exporter_httpserver
+        enabled: "{{ jmx_exporter_httpserver_service_enable }}"
+        use: "{{ prometheus_exporter_service_mgr }}"
+
+    - name: Service State
+      become: true
+      become_user: root
+      service:
+        name: jmx_exporter_httpserver
+        state: "{{ jmx_exporter_httpserver_service_state }}"
+        use: "{{ prometheus_exporter_service_mgr }}"
+      register: _jmx_exporter_httpserver_service_state
+  when: jmx_exporter_httpserver_service_manage | bool

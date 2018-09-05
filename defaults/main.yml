@@ -8,3 +8,25 @@ jmx_exporter_httpserver_signature: "jmx_prometheus_httpserver-{{ jmx_exporter_ve
 
 jmx_exporter_program: "{{ prometheus_exporter_dir }}/jmx_prometheus_javaagent.jar"
 jmx_exporter_httpserver_program: "{{ prometheus_exporter_dir }}/jmx_prometheus_httpserver.jar"
+#jmx_exporter_httpserver_java_bin: "/usr/bin/java"
+
+# By default the httpserver is disabled
+jmx_exporter_httpserver_user: jmx_exporter
+jmx_exporter_httpserver_user_manage: false
+jmx_exporter_httpserver_group: jmx_exporter
+jmx_exporter_httpserver_group_manage: false
+
+jmx_exporter_httpserver_home: "/var/lib/jmx_exporter_httpserver"
+jmx_exporter_httpserver_home_manage: false
+jmx_exporter_httpserver_jvm_options: []
+jmx_exporter_httpserver_options: [] # minimum is <port> <config_file>
+
+jmx_exporter_httpserver_config_file: /etc/default/jmx_exporter_httpserver
+jmx_exporter_httpserver_pid_path: "/var/run"
+jmx_exporter_httpserver_log_path: "/var/log/jmx_exporter_httpserver"
+jmx_exporter_httpserver_log_path_manage: false
+
+jmx_exporter_httpserver_service_manage: false
+jmx_exporter_httpserver_service_enable: false
+jmx_exporter_httpserver_service_state: stopped
+jmx_exporter_httpserver_service_notify: false

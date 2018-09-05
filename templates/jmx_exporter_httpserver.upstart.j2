@@ -1,0 +1,28 @@
+{{ ansible_managed | comment }}
+
+description "Prometheus JMX Exporter HTTP Server"
+start on (local-filesystems and net-device-up IFACE!=lo)
+stop on runlevel [016]
+
+respawn
+
+setuid {{ jmx_exporter_httpserver_user }}
+setgid {{ jmx_exporter_httpserver_group }}
+
+env name=jmx_exporter_httpserver
+env prog={{ jmx_exporter_httpserver_program }}
+env logdir={{ jmx_exporter_httpserver_log_path }}
+env user={{ jmx_exporter_httpserver_user }}
+env group={{ jmx_exporter_httpserver_group }}
+env JAVA_BIN=/usr/bin/java
+env JVM_OPTIONS=
+env OPTIONS=
+
+script
+  if [ -f "{{ jmx_exporter_httpserver_config_file }}" ] ; then
+    . "{{ jmx_exporter_httpserver_config_file }}"
+  fi
+
+  binary=$(readlink -f $prog)
+  exec $JAVA_BIN $JVM_OPTIONS -jar $binary $OPTIONS >> "${logdir}/${name}.log" 2>&1
+end script

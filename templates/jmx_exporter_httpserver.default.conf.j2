@@ -1,0 +1,5 @@
+{{ ansible_managed | comment }}
+
+JAVA_BIN={{ jmx_exporter_httpserver_java_bin | default('/usr/bin/java') }}
+JVM_OPTIONS="{{ jmx_exporter_httpserver_jvm_options | join (' ') }}"
+OPTIONS="{{ jmx_exporter_httpserver_options | join(' ') }}"

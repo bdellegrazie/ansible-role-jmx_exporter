@@ -45,14 +45,5 @@
     state: link
   register: jmx_exporter_binary
 
-- name: symlink httpserver
-  become: true
-  become_user: root
-  file:
-    src: "{{ jmx_exporter_dist_dir }}/{{ jmx_exporter_httpserver_signature }}"
-    path: "{{ jmx_exporter_httpserver_program }}"
-    owner: root
-    group: root
-    force: true
-    state: link
-  register: jmx_exporter_httpserver_binary
+- name: httpserver
+  include: httpserver.yml

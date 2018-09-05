@@ -1,0 +1,18 @@
+---
+jmx_exporter_httpserver_user_manage: true
+jmx_exporter_httpserver_group_manage: true
+jmx_exporter_httpserver_home_manage: true
+jmx_exporter_httpserver_log_path_manage: true
+jmx_exporter_httpserver_service_manage: true
+jmx_exporter_httpserver_service_enable: true
+jmx_exporter_httpserver_service_state: started
+jmx_exporter_httpserver_service_notify: true
+
+jmx_exporter_httpserver_jvm_options:
+  - '-Dcom.sun.management.jmxremote.ssl=false'
+  - '-Dcom.sun.management.jmxremote.authenticate=false'
+  - '-Dcom.sun.management.jmxremote.port=5555'
+
+jmx_exporter_httpserver_options: # minimum is <port> <config_file>
+  - 5556
+  - /etc/jmx_exporter_httpserver.yml

@@ -1,0 +1,11 @@
+---
+- name: restart jmx_exporter_httpserver
+  become: true
+  become_user: root
+  service:
+    name: jmx_exporter_httpserver
+    state: "{{ (jmx_exporter_httpserver_service_state != 'stopped') | ternary('restarted', 'stopped') }}"
+    use: "{{ prometheus_exporter_service_mgr }}"
+  when: jmx_exporter_httpserver_service_notify and (
+    _jmx_exporter_httpserver_service_state is not defined or
+    not ( _jmx_exporter_httpserver_service_state | changed ))
