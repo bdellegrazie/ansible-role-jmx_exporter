@@ -1,8 +1,8 @@
 ---
 # From Galaxy
 - src: 'bdellegrazie.ansible-role-serverspec_test_dependencies'
-  version: 'v0.0.7'
+  version: 'v0.0.8'
 - src: 'geerlingguy.java'
-  version: '1.8.1'
+  version: '1.9.1'
 - src: 'bdellegrazie.ansible-role-prometheus_exporter'
-  version: 'v1.0.14'
+  version: 'v1.0.15'

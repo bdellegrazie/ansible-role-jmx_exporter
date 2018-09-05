@@ -11,22 +11,29 @@
   become: true
   become_user: root
   maven_artifact:
-    artifact_id: "jmx_prometheus_javaagent"
-    dest: "{{ jmx_exporter_dist_dir }}"
+    artifact_id: "{{ item.id }}"
+    classifier: "{{ item.classifier | default(omit) }}"
+    dest: "{{ jmx_exporter_dist_dir ~ '/' ~ item.id ~ '-' ~ jmx_exporter_version ~ (('-' ~ item.classifier) if item.classifier is defined else '') ~ '.jar' }}"
     group_id: "io.prometheus.jmx"
     repository_url: "{{ jmx_exporter_repository_url | default(omit) }}"
     version: "{{ jmx_exporter_version }}"
+  with_items:
+    - { id: "jmx_prometheus_javaagent" }
+    - { id: "jmx_prometheus_httpserver", classifier: "jar-with-dependencies" }
 
 - name: permissions
   become: true
   become_user: root
   file:
-    path: "{{ jmx_exporter_dist_dir }}/{{ jmx_exporter_signature }}"
+    path: "{{ jmx_exporter_dist_dir }}/{{ item }}"
     owner: root
     group: root
     mode: "u=rw,go=r"
+  with_items:
+    - "{{ jmx_exporter_signature }}"
+    - "{{ jmx_exporter_httpserver_signature }}"
 
-- name: symlink
+- name: symlink javaagent
   become: true
   become_user: root
   file:
@@ -37,3 +44,15 @@
     force: true
     state: link
   register: jmx_exporter_binary
+
+- name: symlink httpserver
+  become: true
+  become_user: root
+  file:
+    src: "{{ jmx_exporter_dist_dir }}/{{ jmx_exporter_httpserver_signature }}"
+    path: "{{ jmx_exporter_httpserver_program }}"
+    owner: root
+    group: root
+    force: true
+    state: link
+  register: jmx_exporter_httpserver_binary

@@ -8,4 +8,19 @@ control 'jmx_exporter' do
   describe file('/opt/prometheus/exporters/jmx_prometheus_javaagent.jar') do
     it { should be_symlink }
   end
+  javaagent_target = file('/opt/prometheus/exporters/jmx_prometheus_javaagent.jar').link_path
+  describe file(javaagent_target) do
+    it { should exist }
+    it { should be_file }
+    its('basename') { should match /.*javaagent.*/ }
+  end
+  describe file('/opt/prometheus/exporters/jmx_prometheus_httpserver.jar') do
+    it { should be_symlink }
+  end
+  httpserver_target = file('/opt/prometheus/exporters/jmx_prometheus_httpserver.jar').link_path
+  describe file(httpserver_target) do
+    it { should exist }
+    it { should be_file }
+    its('basename') { should match /.*httpserver.*/ }
+  end
 end

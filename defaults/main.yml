@@ -4,5 +4,7 @@ jmx_exporter_version: "0.3.1"
 jmx_exporter_dist_dir: "{{ prometheus_exporter_dist_dir }}"
 #jmx_exporter_repository_url: optional maven repo
 jmx_exporter_signature: "jmx_prometheus_javaagent-{{ jmx_exporter_version }}.jar"
+jmx_exporter_httpserver_signature: "jmx_prometheus_httpserver-{{ jmx_exporter_version }}-jar-with-dependencies.jar"
 
 jmx_exporter_program: "{{ prometheus_exporter_dir }}/jmx_prometheus_javaagent.jar"
+jmx_exporter_httpserver_program: "{{ prometheus_exporter_dir }}/jmx_prometheus_httpserver.jar"
