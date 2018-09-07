@@ -14,7 +14,6 @@ env prog={{ jmx_exporter_httpserver_program }}
 env logdir={{ jmx_exporter_httpserver_log_path }}
 env user={{ jmx_exporter_httpserver_user }}
 env group={{ jmx_exporter_httpserver_group }}
-env JAVA_BIN=/usr/bin/java
 env JVM_OPTIONS=
 env OPTIONS=
 
@@ -24,5 +23,5 @@ script
   fi
 
   binary=$(readlink -f $prog)
-  exec $JAVA_BIN $JVM_OPTIONS -jar $binary $OPTIONS >> "${logdir}/${name}.log" 2>&1
+  exec {{ jmx_exporter_httpserver_java_bin }} $JVM_OPTIONS -cp "$binary{{ (':' ~ jmx_exporter_httpserver_classpath) if jmx_exporter_httpserver_classpath is defined else '' }}" io.prometheus.jmx.WebServer $OPTIONS >> "${logdir}/${name}.log" 2>&1
 end script

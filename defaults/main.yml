@@ -8,7 +8,6 @@ jmx_exporter_httpserver_signature: "jmx_prometheus_httpserver-{{ jmx_exporter_ve
 
 jmx_exporter_program: "{{ prometheus_exporter_dir }}/jmx_prometheus_javaagent.jar"
 jmx_exporter_httpserver_program: "{{ prometheus_exporter_dir }}/jmx_prometheus_httpserver.jar"
-#jmx_exporter_httpserver_java_bin: "/usr/bin/java"
 
 # By default the httpserver is disabled
 jmx_exporter_httpserver_user: jmx_exporter
@@ -18,7 +17,9 @@ jmx_exporter_httpserver_group_manage: false
 
 jmx_exporter_httpserver_home: "/var/lib/jmx_exporter_httpserver"
 jmx_exporter_httpserver_home_manage: false
+jmx_exporter_httpserver_java_bin: "/usr/bin/java" # Control the JVM executable
 jmx_exporter_httpserver_jvm_options: []
+#jmx_exporter_httpserver_classpath: ~ # use this to extend the classpath if needed (e.g. Wildfly)
 jmx_exporter_httpserver_options: [] # minimum is <port> <config_file>
 
 jmx_exporter_httpserver_config_file: /etc/default/jmx_exporter_httpserver

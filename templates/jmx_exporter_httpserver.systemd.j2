@@ -11,7 +11,7 @@ Group={{ jmx_exporter_httpserver_group }}
 Environment="JVM_OPTIONS=" "OPTIONS="
 EnvironmentFile={{ jmx_exporter_httpserver_config_file }}
 WorkingDirectory={{ jmx_exporter_httpserver_home }}
-ExecStart=/usr/bin/java $JVM_OPTIONS -jar {{ jmx_exporter_httpserver_program }} $OPTIONS
+ExecStart={{ jmx_exporter_httpserver_java_bin }} $JVM_OPTIONS -cp {{ jmx_exporter_httpserver_program ~ (':' ~ jmx_exporter_httpserver_classpath if jmx_exporter_httpserver_classpath is defined else '') }} io.prometheus.jmx.WebServer $OPTIONS
 SuccessExitStatus=143
 
 SyslogIdentifier=jmx_exporter_httpserver

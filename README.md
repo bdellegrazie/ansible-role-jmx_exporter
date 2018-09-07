@@ -1,6 +1,6 @@
 # ansible-role-jmx\_exporter
 
-Installs the Node Exporter for Prometheus.
+Installs the JMX Exporter for Prometheus, includes service control to run the JMX httpserver version as well.
 
 [![Build Status](https://travis-ci.org/bdellegrazie/ansible-role-jmx_exporter.svg?branch=master)](https://travis-ci.org/bdellegrazie/ansible-role-jmx_exporter)
 
@@ -12,7 +12,7 @@ Requires Ansible role `bdellegrazie.ansible-role-prometheus_exporter`
 
 | Variable | Description | Default |
 |----------|-------------|---------|
-| `jmx_exporter_version`| Version of the exporter to use | `0.10` |
+| `jmx_exporter_version`| Version of the exporter to use | `0.3.1` |
 
 Other variables are in defaults/main.yml
 

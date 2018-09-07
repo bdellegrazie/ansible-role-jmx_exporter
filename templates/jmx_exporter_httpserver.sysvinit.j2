@@ -23,7 +23,6 @@ if [ -f /etc/init.d/functions ] ; then
 fi
 
 # defaults
-JAVA_BIN=/usr/bin/java
 JVM_OPTIONS=""
 OPTIONS=""
 
@@ -55,7 +54,9 @@ start() {
 	echo -n $"Starting $name: "
 	daemonize -a -c '/' -e ${logdir}/${name}.err.log -o ${logdir}/${name}.out.log \
 		-p $pidfile -l $lockfile -u $user \
-		$JAVA_BIN $JVM_OPTIONS -jar $binary $OPTIONS
+		{{ jmx_exporter_httpserver_java_bin }} \
+		$JVM_OPTIONS -cp "$binary{{ (':' ~ jmx_exporter_httpserver_classpath) if jmx_exporter_httpserver_classpath is defined else '' }}" \
+		io.prometheus.jmx.WebServer $OPTIONS
 	RETVAL=$?
 	echo
 	[ $RETVAL -eq 0 ] && touch $lockfile
