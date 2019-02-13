@@ -1,0 +1,19 @@
+---
+- hosts: all
+  roles:
+    - geerlingguy.java
+    - bdellegrazie.ansible-role-prometheus_exporter
+  pre_tasks:
+    - name: "httpserver test config"
+      become: true
+      become_user: root
+      copy:
+        dest: /etc/jmx_exporter_httpserver.yml
+        group: root
+        mode: "u=wr,go=r"
+        owner: root
+        content: |
+            ---
+            hostPort: localhost:5555
+            rules:
+              - pattern: ".*"

@@ -8,4 +8,4 @@
     use: "{{ prometheus_exporter_service_mgr }}"
   when: jmx_exporter_httpserver_service_notify and (
     _jmx_exporter_httpserver_service_state is not defined or
-    not ( _jmx_exporter_httpserver_service_state | changed ))
+    not ( _jmx_exporter_httpserver_service_state is changed ))

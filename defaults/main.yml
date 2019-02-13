@@ -1,5 +1,5 @@
 ---
-jmx_exporter_version: "0.3.1"
+jmx_exporter_version: "0.11.0"
 
 jmx_exporter_dist_dir: "{{ prometheus_exporter_dist_dir }}"
 #jmx_exporter_repository_url: optional maven repo
@@ -17,10 +17,10 @@ jmx_exporter_httpserver_group_manage: false
 
 jmx_exporter_httpserver_home: "/var/lib/jmx_exporter_httpserver"
 jmx_exporter_httpserver_home_manage: false
-jmx_exporter_httpserver_java_bin: "/usr/bin/java" # Control the JVM executable
+jmx_exporter_httpserver_java_bin: "/usr/bin/java"  # Control the JVM executable
 jmx_exporter_httpserver_jvm_options: []
-#jmx_exporter_httpserver_classpath: ~ # use this to extend the classpath if needed (e.g. Wildfly)
-jmx_exporter_httpserver_options: [] # minimum is <port> <config_file>
+#jmx_exporter_httpserver_classpath: ~  # use this to extend the classpath if needed (e.g. Wildfly)
+jmx_exporter_httpserver_options: []  # minimum is <port> <config_file>
 
 jmx_exporter_httpserver_config_file: /etc/default/jmx_exporter_httpserver
 jmx_exporter_httpserver_pid_path: "/var/run"

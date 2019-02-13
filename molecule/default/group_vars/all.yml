@@ -13,6 +13,6 @@ jmx_exporter_httpserver_jvm_options:
   - '-Dcom.sun.management.jmxremote.authenticate=false'
   - '-Dcom.sun.management.jmxremote.port=5555'
 
-jmx_exporter_httpserver_options: # minimum is <port> <config_file>
+jmx_exporter_httpserver_options:  # minimum is <port> <config_file>
   - 5556
   - /etc/jmx_exporter_httpserver.yml

@@ -1,0 +1,27 @@
+---
+file:
+  /opt/prometheus/exporters/jmx_prometheus_javaagent.jar:
+    exists: true
+    filetype: symlink
+  /opt/prometheus/exporters/jmx_prometheus_httpserver.jar:
+    exists: true
+    filetype: symlink
+
+port:
+  tcp:5556:
+    listening: true
+
+process:
+  java:
+    running: true
+
+service:
+  jmx_exporter_httpserver:
+    enabled: true
+    running: true
+
+http:
+  http://localhost:5556/metrics:
+    status: 200
+    body:
+      - /jmx_scrape_duration_seconds/
