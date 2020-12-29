@@ -1,10 +1,22 @@
 ---
+- name: Load Distro Specific Variables
+  include_vars: "{{ lookup('first_found', params) }}"
+  ignore_errors: true
+  vars:
+    params:
+      files:
+        - "vars-{{ ansible_distribution | lower }}-{{ ansible_distribution_major_version }}.yml"
+        - "vars-default.yml"
+      paths:
+        - "vars"
+      skip: false
+
 # dependency of maven_artifact
 - name: prerequisites
   become: true
   become_user: root
   package:
-    name: python-lxml
+    name: "{{ jmx_exporter_dependencies }}"
     state: present
 
 - name: download

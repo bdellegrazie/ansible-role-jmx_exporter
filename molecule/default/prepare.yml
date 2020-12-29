@@ -1,9 +1,30 @@
 ---
 - hosts: all
-  roles:
-    - geerlingguy.java
-    - bdellegrazie.ansible-role-prometheus_exporter
-  pre_tasks:
+  tasks:
+    - name: Update package cache (Debian, Ubuntu)
+      become: true
+      apt:
+        update_cache: true
+      when: (ansible_os_family | lower) == 'debian'
+      ignore_errors: true  # Debian snapshot repositories are sometimes out-of-date
+
+    - name: Update package cache (Redhat)
+      become: true
+      yum:
+        update_cache: true
+      when:
+        - (ansible_os_family | lower) == 'redhat'
+
+    - name: Man page directories
+      become: true
+      file:
+        path: /usr/share/man/man1
+        owner: 'root'
+        group: 'root'
+        mode: 'u=rwx,go=rx'
+        state: directory
+      when: (ansible_os_family | lower) == 'debian'
+
     - name: "httpserver test config"
       become: true
       become_user: root
@@ -17,3 +38,7 @@
             hostPort: localhost:5555
             rules:
               - pattern: ".*"
+
+- hosts: all
+  roles:
+    - geerlingguy.java

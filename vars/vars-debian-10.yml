@@ -1,0 +1,3 @@
+---
+jmx_exporter_dependencies:
+  - python-lxml
